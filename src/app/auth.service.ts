@@ -64,6 +64,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('token') || !!localStorage.getItem('token');
-  }
+    return typeof sessionStorage !== 'undefined' && !!sessionStorage.getItem('token');
+  }  
 }

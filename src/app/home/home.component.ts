@@ -20,7 +20,6 @@ export class HomeComponent {
   
   constructor(private authService: AuthService, private router: Router) {
     this.userInfo = this.authService.getUserInfo();
-    console.log("userInfo: ", this.userInfo);
   }
 
   logout() {
