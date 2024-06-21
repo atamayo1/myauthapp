@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +14,13 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit() {
     try {
       const response = this.authService.login(this.username, this.password);
       console.log('Login successful', response);
+      this.router.navigate(['/home']);
       // Handle successful login (e.g., store token, redirect)
     } catch (error) {
       console.error('Login failed', error);
