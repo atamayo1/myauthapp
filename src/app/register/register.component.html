@@ -1,15 +1,21 @@
-<form (ngSubmit)="onSubmit()">
-    <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" [(ngModel)]="username" name="username" required>
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" required>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required>
-    </div>
-    <button type="submit">Register</button>
-</form>
+<!-- register.component.html -->
+
+<div class="register-container">
+    <form (ngSubmit)="onSubmit()" class="register-form">
+        <div class="title">Register</div>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" [(ngModel)]="email" name="email" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <a href="/login">Go to login</a>
+    </form>
+</div>

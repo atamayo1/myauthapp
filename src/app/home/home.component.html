@@ -1,5 +1,10 @@
 <div class="home-container">
     <h1 appHoverColor>{{ title | caseConverter: true }}</h1>
-    <p appTooltip="your login was successfully">{{ description | caseConverter: false }}</p>
-    <button class="btn" (click)="logout()">Logout</button>
+    <div *ngIf="userInfo">
+        <p appTooltip="your login was successfully: {{ userInfo.username }}">{{ description | caseConverter: false }} {{ userInfo.username }}</p>
+        <button class="btn" (click)="logout()">Logout</button>
+    </div>
+    <div *ngIf="!userInfo">
+        <p>Please login to access this page.</p>
+    </div>
 </div>

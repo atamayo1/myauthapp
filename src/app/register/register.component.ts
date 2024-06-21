@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -14,16 +16,19 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  onSubmit() {
-    try {
-      const response = this.authService.register(this.username, this.email, this.password);
-      console.log('Registration successful', response);
-      // Handle successful registration (e.g., redirect to login)
-    } catch (error) {
-      console.error('Registration failed', error);
-      // Handle registration error
-    }
+  onSubmit(): void {
+    this.authService.register(this.username, this.email, this.password).pipe(
+      catchError(error => {
+        console.error('Register failed', error);
+        return of(false);
+      })
+    ).subscribe(success => {
+      if (success) {
+        console.log('Register successful');
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }

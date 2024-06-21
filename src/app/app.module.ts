@@ -15,7 +15,9 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [provideHttpClient()],
+  providers: [
+    provideHttpClient(),
+  ],
   bootstrap: []
 })
 export class AppModule { }
