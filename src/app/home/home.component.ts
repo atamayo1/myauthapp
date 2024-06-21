@@ -3,11 +3,12 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HoverColorDirective } from '../hover-color.directive';
 import { CaseConverterPipe } from '../case-converter.pipe';
+import { TooltipDirective } from '../tooltip.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HoverColorDirective, CaseConverterPipe],
+  imports: [HoverColorDirective, CaseConverterPipe, TooltipDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

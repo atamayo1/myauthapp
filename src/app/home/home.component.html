@@ -1,5 +1,5 @@
 <div class="home-container">
     <h1 appHoverColor>{{ title | caseConverter: true }}</h1>
-    <p>{{ description | caseConverter: false }}</p>
+    <p appTooltip="your login was successfully">{{ description | caseConverter: false }}</p>
     <button class="btn" (click)="logout()">Logout</button>
 </div>
