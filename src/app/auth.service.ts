@@ -15,7 +15,7 @@ export class AuthService {
     const loginData = { username, password };
     return this.http.post<{ token: string }>(`${this.apiUrl}/Auth/login`, loginData).pipe(
       map(response => {
-        localStorage.setItem('token', response.token);
+        sessionStorage.setItem('token', response.token);
         this.isAuthenticated = true;
         return true;
       }),
@@ -38,11 +38,11 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.isAuthenticated = false;
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 }

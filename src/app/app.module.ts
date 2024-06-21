@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule,
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [provideHttpClient()],
   bootstrap: []

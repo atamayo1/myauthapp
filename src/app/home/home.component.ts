@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HoverColorDirective } from '../hover-color.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [HoverColorDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
