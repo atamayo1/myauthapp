@@ -9,7 +9,7 @@ export class HoverColorDirective {
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   @HostListener('mouseenter') onMouseEnter() {
-    this.changeColor('#0156b3');
+    this.changeColor('#007bff');
   }
   @HostListener('mouseleave') onMouseLeave() {
     this.changeColor('');

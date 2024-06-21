@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { HoverColorDirective } from '../hover-color.directive';
-import { CaseConverterPipe } from '../case-converter.pipe';
-import { TooltipDirective } from '../tooltip.directive';
+import { HoverColorDirective } from '../directives/hover-color.directive';
+import { CaseConverterPipe } from '../pipes/case-converter.pipe';
+import { TooltipDirective } from '../directives/tooltip.directive';
 import { NgIf } from '@angular/common';
 
 @Component({
