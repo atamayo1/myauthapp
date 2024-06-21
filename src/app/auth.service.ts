@@ -1,40 +1,48 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = 'http://localhost:5189/api';
+  private isAuthenticated = false;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<boolean> {
     const loginData = { username, password };
-    return this.httpPost(`${this.apiUrl}/Auth/login`, loginData);
+    return this.http.post<{ token: string }>(`${this.apiUrl}/Auth/login`, loginData).pipe(
+      map(response => {
+        localStorage.setItem('token', response.token);
+        this.isAuthenticated = true;
+        return true;
+      }),
+      catchError(error => {
+        console.error('Login failed', error);
+        return of(false);
+      })
+    );
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
+  register(username: string, email: string, password: string): Observable<boolean> {
     const registerData = { username, email, password };
-    return this.httpPost(`${this.apiUrl}/Users/register`, registerData);
+    return this.http.post(`${this.apiUrl}/Users/register`, registerData).pipe(
+      map(() => true),
+      catchError(error => {
+        console.error('Registration failed', error);
+        return of(false);
+      })
+    );
   }
 
-  private httpPost(url: string, data: any): Observable<any> {
-    return new Observable<any>((observer) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-            observer.next(JSON.parse(xhr.responseText));
-            observer.complete();
-          } else {
-            observer.error(xhr.statusText);
-          }
-        }
-      };
-      xhr.send(JSON.stringify(data));
-    });
+  logout(): void {
+    localStorage.removeItem('token');
+    this.isAuthenticated = false;
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

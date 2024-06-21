@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,17 +15,21 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    try {
-      const response = this.authService.login(this.username, this.password);
-      console.log('Login successful', response);
-      this.router.navigate(['/home']);
-      // Handle successful login (e.g., store token, redirect)
-    } catch (error) {
-      console.error('Login failed', error);
-      // Handle login error
-    }
+    this.authService.login(this.username, this.password)
+      .pipe(
+        catchError(error => {
+          console.error('Login failed', error);
+          return of(false);
+        })
+      )
+      .subscribe(success => {
+        if (success) {
+          console.log('Login successful');
+          this.router.navigate(['/home']);
+        }
+      });
   }
 }
